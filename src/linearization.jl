@@ -214,8 +214,7 @@ function (linfun::LinearizationFunction)(u, p, t)
         h_u = h_u,
         x = u,
         p,
-        t,
-        success)
+        t)
 end
 
 """
@@ -323,7 +322,7 @@ function CommonSolve.solve(prob::LinearizationProblem; allow_input_derivatives =
     p = parameter_values(prob)
     t = current_time(prob)
     linres = prob.f(u0, p, t)
-    f_x, f_z, g_x, g_z, f_u, g_u, h_x, h_z, h_u, x, p, t, success = linres
+    f_x, f_z, g_x, g_z, f_u, g_u, h_x, h_z, h_u, x, p, t = linres
 
     nx, nu = size(f_u)
     nz = size(f_z, 2)
@@ -360,7 +359,7 @@ function CommonSolve.solve(prob::LinearizationProblem; allow_input_derivatives =
         end
     end
 
-    (; A, B, C, D), (; x, p, t, success)
+    (; A, B, C, D), (; x, p, t)
 end
 
 """
@@ -514,7 +513,7 @@ If `allow_input_derivatives = false`, an error will be thrown if input derivativ
 
 `zero_dummy_der` can be set to automatically set the operating point to zero for all dummy derivatives.
 
-The return value `extras` is a NamedTuple `(; x, p, t, success)` containing the result of the initialization problem that was solved to determine the operating point.
+The return value `extras` is a NamedTuple `(; x, p, t)` containing the result of the initialization problem that was solved to determine the operating point.
 
 See also [`linearization_function`](@ref) which provides a lower-level interface, [`linearize_symbolic`](@ref) and [`ModelingToolkit.reorder_unknowns`](@ref).
 
