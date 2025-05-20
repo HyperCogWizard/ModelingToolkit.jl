@@ -149,9 +149,9 @@ var1 ~ var3
 ```
 """
 function Symbolics.connect(var1::ConnectableSymbolicT, var2::ConnectableSymbolicT,
-        vars::ConnectableSymbolicT...)
+        vars::ConnectableSymbolicT...; validate = true)
     allvars = (var1, var2, vars...)
-    validate_causal_variables_connection(allvars)
+    validate && validate_causal_variables_connection(allvars)
     return Equation(Connection(), Connection(map(SymbolicWithNameof, allvars)))
 end
 
