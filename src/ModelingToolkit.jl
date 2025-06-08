@@ -223,6 +223,9 @@ include("inputoutput.jl")
 include("adjoints.jl")
 include("deprecations.jl")
 
+# Cognitive modeling extensions
+include("cognitive/cognitive.jl")
+
 const t_nounits = let
     only(@independent_variables t)
 end
@@ -358,6 +361,13 @@ include("systems/optimal_control_interface.jl")
 export AbstractDynamicOptProblem, JuMPDynamicOptProblem, InfiniteOptDynamicOptProblem,
        CasADiDynamicOptProblem
 export DynamicOptSolution
+
+# Cognitive modeling exports
+export CognitiveSystem, @cognitive, add_knowledge!, infer, reason_forward, 
+       connect_to_system, InferenceRules
+export SymbolicAST, ast_depth, ast_complexity, ast_similarity, ast_patterns,
+       ast_transform, ast_search, ast_substitute_pattern, ast_optimize,
+       cognitive_ast_analysis
 
 @public apply_to_variables
 
